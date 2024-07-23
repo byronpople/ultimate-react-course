@@ -142,3 +142,44 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+// Destructuring
+const books = getBooks();
+books;
+const book = getBook(1);
+book;
+// const title = book.title;
+// const author = book.author;
+
+const { title, author, pages, publicationDate, genres, hasMovieAdaptation } =
+  book;
+title;
+author;
+pages;
+publicationDate;
+genres;
+hasMovieAdaptation;
+
+const [primaryGenre, secondaryGenre, ...otherGenres] = genres;
+console.log(primaryGenre, secondaryGenre, otherGenres);
+
+// SpreadOperater
+const newGenres = [...genres, "epic-genre"];
+newGenres;
+
+const updatedBook = {
+  ...book,
+  // Adding a new property
+  moviePublicationDate: "2001-12-09",
+
+  // Overwritting an existing property
+  pages: 1988,
+};
+updatedBook;
+
+// Template Literals
+const summary = `${title}. a ${pages}-page book, was written by ${author} and published in ${
+  publicationDate.split("-")[0]
+}`;
+summary;
+
+// Ternaries Instead of if/else Statments
