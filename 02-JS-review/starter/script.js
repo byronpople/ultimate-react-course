@@ -142,10 +142,10 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
-// Destructuring
+/*// Destructuring
 const books = getBooks();
 books;
-const book = getBook(1);
+const book = getBook(3);
 book;
 // const title = book.title;
 // const author = book.author;
@@ -183,3 +183,113 @@ const summary = `${title}. a ${pages}-page book, was written by ${author} and pu
 summary;
 
 // Ternaries Instead of if/else Statments
+pages > 1000 ? "overa thousand" : "less than 1000";
+
+// Arrow Functions
+const getYear = (str) => str.split("-")[0];
+// Standard funtion:
+// function getYear(str) {
+//   return str.split("-")[0];
+// }
+console.log(getYear(publicationDate));
+
+// Short-Circuiting And Logical Operators: &&, ||, ??
+console.log(true && " some string");
+console.log(false && "some string");
+console.log(hasMovieAdaptation && "This book has a movie");
+
+// falsy: 0, '', null, undefined
+console.log("jonas" && "some string");
+console.log(0 && "some string");
+
+console.log(true || "some string");
+console.log(false || "some string");
+
+console.log(book.translations.spanish);
+
+const spanishTranslation = book.translations.spanish || "NOT TRANSLATED";
+spanishTranslation;
+
+// const bookReviewsCount = book.reviews.librarything.reviewsCount;
+// console.log(bookReviewsCount);
+// const countWrong = bookReviewsCount || "no data";
+// countWrong;
+// // falsy now only works for null, undifined
+// const count = bookReviewsCount ?? "no data";
+// count;
+
+// Optional Chaining
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews.goodreads.reviewsCount;
+  const librarything = book.reviews.librarything?.reviewsCount ?? 0;
+
+  goodreads;
+  librarything;
+
+  return goodreads + librarything;
+}
+
+console.log(getTotalReviewCount(book));
+*/
+
+// MAP method
+const books = getBooks();
+books;
+
+// const titles = books.map((book) => book.title);
+// titles;
+
+// const essentailData = books.map((book) => ({
+//   title: book.title,
+//   author: book.author,
+// }));
+// essentailData;
+
+// FILTER method
+const longBooks = books.filter((book) => book.pages > 500);
+longBooks;
+
+const adventureBooks = books
+  .filter((book) => book.genres.includes("adventure"))
+  .map((book) => book.title);
+adventureBooks;
+
+// REDUCE method creates new array
+const pagesAllBooks = books.reduce((acc, book) => acc + book.pages, 0);
+pagesAllBooks;
+
+// SORT method changes original array - use slice() to create copy of original array
+const arr = [3, 6, 1, 7, 2, 9];
+const sortAssendingOrder = arr.slice().sort((a, b) => a - b);
+const sortDessendingOrder = arr.slice().sort((a, b) => b - a);
+arr;
+sortAssendingOrder;
+sortDessendingOrder;
+
+const sortedByPages = books.slice().sort((a, b) => b.pages - a.pages);
+const sortedByPagesTestByron = books
+  .slice()
+  .sort((a, b) => b.pages - a.pages)
+  .map((book) => ({ title: book.title, pages: book.pages }));
+sortedByPages;
+sortedByPagesTestByron;
+
+//Immutable Arrays
+// 1) Add book object to array
+const newBook = {
+  id: 6,
+  title: "Byron's Greatest Story",
+  author: "Sir Byron Pople",
+};
+const booksAfterAdd = [...books, newBook];
+booksAfterAdd;
+
+// 2) Delete book object from array
+const booksAfterDelete = booksAfterAdd.filter((book) => book.id !== 3);
+booksAfterDelete;
+
+// 3) Update book object in the array
+const booksAfterUpdate = booksAfterDelete.map((book) =>
+  book.id == 6 ? { ...book, pages: 9999, title: "Bubz Big Book" } : book
+);
+booksAfterUpdate;
