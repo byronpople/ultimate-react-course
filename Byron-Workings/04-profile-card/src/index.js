@@ -45,43 +45,41 @@ function Intro() {
   );
 }
 
-const skillItems = () => {
+function SkillList() {
+  return <ul className="skill-list">{rendersSkills()}</ul>;
+}
+
+const rendersSkills = () => {
   const skillData = [
-    { name: "HTML + CSS", favicon: "😀", color: "blue" },
-    { name: "JSX", favicon: "😀", color: "yellow" },
-    { name: "Vue,js", favicon: "😀", color: "green" },
-    { name: "React native", favicon: "😀", color: "red" },
+    { name: "HTML + CSS", level: "beginner", color: "blue" },
+    { name: "JSX", level: "middle", color: "yellow" },
+    { name: "Vue,js", level: "advanced", color: "green" },
+    { name: "React native", level: "god", color: "red" },
   ];
   return skillData.map((skill) => {
     return (
-      <div style={{ backgroundColor: skill.color }} className="skill">
-        <span>{skill.name}</span>
-        <span>{skill.favicon}</span>
-      </div>
+      <Skill
+        skill={skill.name}
+        level={skill.level}
+        color={skill.color}
+        key={skill.name}
+      />
     );
   });
-  // const skillItem = skillData.map((skill) => (
-  //   <li
-  //     style={{backgroundColor: skill.backgroundColor}}
-  //     key={skill.name}
-  //     className="skill"
-  //   >
-  //     <p>{skill.name}</p>
-  //     <span>{skill.favicon}</span>
-  //   </li>
-  // ));
-  // return (
-  //   <div className="skill-list">
-  //     <Skill skillName="HTML + CSS" favicon="😀" backgroundColor="blue" />
-  //     <Skill skillName="Git GitHub" favicon="😀" backgroundColor="yellow" />
-  //     <Skill skillName="Vue.js" favicon="😀" backgroundColor="green" />
-  //     <Skill skillName="React native" favicon="😀" backgroundColor="red" />
-  //   </div>
-  // );
 };
 
-function SkillList() {
-  return <div className="skill-list">{skillItems()}</div>;
+function Skill({ skill, level, color }) {
+  return (
+    <li style={{ backgroundColor: color }} className="skill">
+      <span>{skill}</span>
+      <span>
+        {level === "beginner" && "😀"}
+        {level === "god" && "😇"}
+        {level === "middle" && "🥳"}
+        {level === "advanced" && "🥶"}
+      </span>
+    </li>
+  );
 }
 
 // function Skill(props) {
